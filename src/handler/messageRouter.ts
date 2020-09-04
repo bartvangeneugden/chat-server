@@ -1,7 +1,7 @@
 import { MessageEvent } from '@types/ws';
-import { ErrorMessage, LoginMessage } from '../model/messages/allMessages';
+import { ErrorMessage, LoginMessage, JoinChannelMessage } from '../model/messages/allMessages';
 import { ErrorCode } from '../model/errorCode';
-import { LoginHandler } from './allHandlers';
+import { LoginHandler, JoinChannelHandler } from './allHandlers';
 
 export default class MessageRouter {
 
@@ -13,6 +13,10 @@ export default class MessageRouter {
           const login: LoginMessage = messageData
           new LoginHandler().handle(login, connectionGuid, message.target);
           break;
+        }
+        case "joinChannel": {
+          const join: JoinChannelMessage = messageData
+          new JoinChannelHandler().handle(join, connectionGuid, message.target);
         }
       }
     } else {

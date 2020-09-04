@@ -14,7 +14,7 @@ export default class InMemoryUserStore {
 
   private constructor() {}
 
-  private userDatabase: [ User ] = [
+  private userDatabase: User[] = [
     { username: 'bart', passwordhash: Hash.hash("abc123"), connectionGuid: null }
   ]
 
@@ -24,6 +24,10 @@ export default class InMemoryUserStore {
       user.connectionGuid = connectionGuid;
     }
     return user;
+  }
+
+  getUserByConnectionGuid(connectionGuid: string): User {
+    return this.userDatabase.find(user => user.connectionGuid == connectionGuid)
   }
 
 }
